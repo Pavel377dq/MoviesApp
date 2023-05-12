@@ -1,0 +1,41 @@
+.row{
+   border: solid 6px transparent;
+   height: 281px;
+   margin-bottom: 34px;
+  /* border: solid black 2px;*/
+}
+
+.column{
+   width: 454px;
+  /* border: solid 6px black;*/
+}
+.innerColumn {
+   
+}
+.wrap {
+   width: 1010px;
+   background-color: #FFFFFF;
+   margin: 0 auto;
+}
+
+.content{
+   width: 100%;
+   background-color:#E5E5E5;}
+   
+   
+.nameMovie{
+font-size: 20px;
+line-height: 28px;
+}
+
+.dateMovie{
+   
+font-size: 12px;
+line-height: 22px;
+color:  #827E7E;;
+}
+
+.overview{
+   font-size: 12px;
+line-height: 22px;
+}
