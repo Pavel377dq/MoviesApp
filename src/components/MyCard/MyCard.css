@@ -1,0 +1,29 @@
+
+.nameMovie{
+   font-size: 20px;
+   line-height: 28px;
+   font-weight: 500;
+   }
+   
+   .dateMovie{
+      
+   font-size: 12px;
+   line-height: 22px;
+   color:  #827E7E;
+   display: block;
+   margin-top: -20px;
+   }
+   
+   .overview{
+      font-size: 12px;
+   line-height: 22px;
+   }
+   
+   .card{
+      height: 281px;
+      width: 454px;
+      margin-bottom: 34px;
+      margin-right: 37px;
+      flex-shrink: 0;
+   }
+   

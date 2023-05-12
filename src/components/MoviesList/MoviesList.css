@@ -1,21 +1,9 @@
-.row{
-   border: solid 6px transparent;
-   height: 281px;
-   margin-bottom: 34px;
-  /* border: solid black 2px;*/
-}
-
-.column{
-   width: 454px;
-  /* border: solid 6px black;*/
-}
-.innerColumn {
-   
-}
 .wrap {
    width: 1010px;
    background-color: #FFFFFF;
    margin: 0 auto;
+   display: flex;
+   flex-wrap: wrap;
 }
 
 .content{
@@ -23,19 +11,28 @@
    background-color:#E5E5E5;}
    
    
-.nameMovie{
-font-size: 20px;
-line-height: 28px;
-}
-
-.dateMovie{
-   
-font-size: 12px;
-line-height: 22px;
-color:  #827E7E;;
-}
-
-.overview{
-   font-size: 12px;
-line-height: 22px;
-}
+/*
+<Col span={9} className="column" offset={2}>
+              <Card>
+              <Row>
+                <Col flex="auto">
+                  <img
+                    style={{ width: "143px", height: "281" }}
+                    className="poster"
+                    src={`https://image.tmdb.org/t/p/original${
+                      moviesData[i + 1].poster_path
+                    }`}
+                  />
+                </Col>
+                <Col flex="200px">
+                  <h5  className="nameMovie">{moviesData[i + 1].title}</h5>
+                  <span className="dateMovie">{format(new Date(releaseDates[i + 1]), "MMMM dd, yyyy", {
+                    locale: enGB,
+                  })}</span>
+                  <p className="overview">{this.sliceText(moviesData[i + 1].overview)}</p>
+                  
+                </Col>
+              </Row>
+              </Card>
+            </Col>
+*/
