@@ -3,6 +3,7 @@
    font-size: 20px;
    line-height: 28px;
    font-weight: 500;
+   margin-top: 12px;
    }
    
    .dateMovie{
@@ -12,18 +13,48 @@
    color:  #827E7E;
    display: block;
    margin-top: -20px;
+  
    }
    
    .overview{
       font-size: 12px;
    line-height: 22px;
+   
    }
    
    .card{
-      height: 281px;
-      width: 454px;
+      height: 284px;
+      width: 455px;
       margin-bottom: 34px;
       margin-right: 37px;
-      flex-shrink: 0;
+      border-radius: 0;
    }
+   
+   .row{
+      margin-top: -24px;
+      margin-left: -24px;
+   }
+
+   .col-right{
+      padding-left: 20px;
+   }
+
+   .card-spiner-wrap{
+      width: 183px;
+      height: 281px;
+      position: relative;
+   }
+
+
+   .card-spiner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+   }
+
    
