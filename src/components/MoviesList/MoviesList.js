@@ -1,34 +1,11 @@
 import React, { Component } from "react";
-import ApiService from "../../services/ApiService";
 import "./MoviesList.css";
 import MyCard from "../MyCard/MyCard.js";
 import { Space, Spin } from "antd";
 import ErrorIndicator from "../Error-indicator/Error-indicator"
 
 export default class MoviesList extends Component {
-  MoviesApi = new ApiService();
-
-  state = {
-    moviesData: null,
-    isLoadingAll: true,
-    error: false
-  };
-
-  constructor() {
-    super();
-    this.MoviesPromise = this.MoviesApi.getResource('Better').then((serverData) => {
-      this.setState({
-        moviesData: serverData.results,
-        isLoadingAll: false,
-        error: false
-      });
-    }).catch((err)=> {
-      this.setState({
-        error: true,
-        isLoadingAll: false
-      })})
-  }
-
+ 
   sliceText(text) {
     const size = 30;
     let newText = text;
@@ -41,6 +18,7 @@ export default class MoviesList extends Component {
   }
 
   rows = (moviesData = null) => {
+    console.log(moviesData,'in rows()')
     const overviewRows = [];
 
     let releaseDates = moviesData.map((el) =>
@@ -71,10 +49,12 @@ export default class MoviesList extends Component {
   };
 
   render() {
-    const { moviesData, isLoadingAll,error } = this.state;
+    const { moviesData, isLoadingAll,error } = this.props;
 
-    const hasData = !(isLoadingAll || error)
-
+    const hasData = isLoadingAll || error;//!(...)?
+    console.log(isLoadingAll,'isLoadingAll');
+    console.log(error,'error');
+    console.log(moviesData,'moviesData');
     const rows = hasData
       ? this.rows(moviesData).map((el) => {
           return el;
@@ -83,7 +63,7 @@ export default class MoviesList extends Component {
 
     const errorMessage = error ? <ErrorIndicator className="error-list" error={'Error 404'} message={'Data of input movies not found'}/>: null;
 
-    const spiner = isLoadingAll ? (
+    const spiner = !isLoadingAll ? (
       <Space className="spin-wrap" size="middle">
         <Spin className="spin" size="large" />
       </Space>
