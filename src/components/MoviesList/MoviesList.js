@@ -31,11 +31,14 @@ export default class MoviesList extends Component {
         : "01-01-1970"
     );
 
+    console.log(releaseDates,'releaseDates');
+
     for (let i = 0; i < moviesData.length; i++) {
       let releaseDate = releaseDates[i];
-      let { title, poster_path, overview } = this.state.moviesData[i];
+      let { title, poster_path, overview } = moviesData[i];
       overviewRows.push(
         <MyCard
+        currentPage={this.props.currentPage}
           releaseDate={releaseDate}
           sliceText={this.sliceText}
           poster_path={poster_path}
@@ -45,6 +48,9 @@ export default class MoviesList extends Component {
         />
       );
     }
+
+    console.log(overviewRows,'overviewRows');
+
     return overviewRows;
   };
 

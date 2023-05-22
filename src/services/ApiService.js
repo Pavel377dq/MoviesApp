@@ -2,8 +2,8 @@
 
 export default class ApiService{
 
-   async getResource(nameMovie='Better'){
-         const url = `https://api.themoviedb.org/3/search/movie?api_key=46add38fb96bd13ada573d1cccde3edf&language=en-US&query=${nameMovie}&page=1&include_adult=false`;
+   async getResource(nameMovie='Better', page=1){
+         const url = `https://api.themoviedb.org/3/search/movie?api_key=46add38fb96bd13ada573d1cccde3edf&language=en-US&query=${nameMovie}&page=${page}&include_adult=false`;
 
          const res = await fetch(url);
          

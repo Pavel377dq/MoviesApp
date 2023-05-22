@@ -14,14 +14,42 @@ export default class MyCard extends Component {
   
 
   state= {
+    currentPage:1,
     isLoadingPicture: true,
     error: false
   }
 
 
-  
+  /*componentWillUpdate(prevProps, prevState, prevContext){
+
+    if(prevProps.currentPage !== this.state.currentPage){
+      this.setState({ currentPage: this.props.currentPage,
+        isLoadingPicture: true });
+
+        console.log('OKOKOKOKOKOKOKOK')
+    }
+
+    console.log('componentDidUpdate')
+  }*/
+
+  shouldComponentUpdate(nextProps){
+
+    if(nextProps.currentPage !== this.state.currentPage){
+      this.setState({ currentPage: nextProps.currentPage,
+        isLoadingPicture: true });
+    }
+
+    return true;
+  }
+
+  /*componentWillUnmount(){
+    this.setState({ currentPage: this.props.currentPage,
+      isLoadingPicture: true });
+  }*/
+
   handleImageLoaded() {
     this.setState({ isLoadingPicture: false });
+    console.log('handleImageLoaded')
   }
 
   handleImageErrored(evt) {
@@ -40,12 +68,13 @@ export default class MyCard extends Component {
  <Spin className="card-spiner" size="large" />
 </Space>: null;
 
-    const errIndicator = this.state.error ? <ErrorIndicator className="error-card" error={"Error 404"} message={"picture not found"} />:null;
+   // const errIndicator = this.state.error ? <ErrorIndicator className="error-card" error={"Error 404"} message={"picture not found"} />:null;
+    //  {errIndicator}
 return (
   <Card className="card">
     <Row className="row">
       <Col className="col-left" flex="183px">
-        {errIndicator}
+     
         {spiner}
       <img alt="Красивый постер фильма"
 onLoad={this.handleImageLoaded.bind(this)}
