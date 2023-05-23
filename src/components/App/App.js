@@ -54,7 +54,7 @@ export default class App extends Component{
   };
    
    
-
+//jukhuih
    render(){
       const {moviesData,isLoadingAll,error,currentPage,totalItems}  = this.state;
       return <div>
