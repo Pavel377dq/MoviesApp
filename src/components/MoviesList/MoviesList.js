@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "./MoviesList.css";
 import MyCard from "../MyCard/MyCard.js";
-import { Space, Spin } from "antd";
 import ErrorIndicator from "../Error-indicator/Error-indicator"
 
 export default class MoviesList extends Component {
- 
+
+
+
+
   sliceText(text) {
     const size = 30;
     let newText = text;
@@ -35,7 +37,7 @@ export default class MoviesList extends Component {
 
     for (let i = 0; i < moviesData.length; i++) {
       let releaseDate = releaseDates[i];
-      let { title, poster_path, overview } = moviesData[i];
+      let { title, poster_path, overview,id } = moviesData[i];
       overviewRows.push(
         <MyCard
         currentPage={this.props.currentPage}
@@ -45,7 +47,8 @@ export default class MoviesList extends Component {
           overview={overview}
           title={title}
           key={i}
-        />
+          id={id}
+          api={this.props.MoviesApi}/>
       );
     }
 
@@ -55,32 +58,28 @@ export default class MoviesList extends Component {
   };
 
   render() {
-    const { moviesData, isLoadingAll,error } = this.props;
+    const { moviesData,error } = this.props;
+   
 
-    const hasData = isLoadingAll || error;//!(...)?
-    console.log(isLoadingAll,'isLoadingAll');
+    
+    //console.log(isLoadingAll,'isLoadingAll');
     console.log(error,'error');
     console.log(moviesData,'moviesData');
-    const rows = hasData
-      ? this.rows(moviesData).map((el) => {
+    const rows = this.rows(moviesData).map((el) => {
           return el;
         })
-      : null;
 
     const errorMessage = error ? <ErrorIndicator className="error-list" error={'Error 404'} message={'Data of input movies not found'}/>: null;
 
-    const spiner = !isLoadingAll ? (
-      <Space className="spin-wrap" size="middle">
-        <Spin className="spin" size="large" />
-      </Space>
-    ) : null;
+ 
 
     return (
-      <main>
+      <main className="main">
+        <div className="block">
         <div className="wrap">
           {errorMessage}
-          {spiner}
           {rows}
+        </div>
         </div>
       </main>
     );

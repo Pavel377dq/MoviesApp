@@ -4,6 +4,7 @@
    line-height: 28px;
    font-weight: 500;
    margin-top: 12px;
+   margin-bottom: 7px;
    }
    
    .dateMovie{
@@ -12,8 +13,6 @@
    line-height: 22px;
    color:  #827E7E;
    display: block;
-   margin-top: -20px;
-  
    }
    
    .overview{
@@ -21,23 +20,98 @@
    line-height: 22px;
    
    }
+   .col-right{
+      padding-left: 20px;
+      grid-area: info;
+   }
    
+@media(max-width: 620px){
+   .col-right{
+      padding-left: 13px;
+      margin-left: 10px;
+   }
+}
+
+   .col-left{
+      grid-area: image;
+   }
+
+   @media(max-width: 620px){
+      .col-left{
+         margin-top: 6px;
+         margin-left: 10px;
+      }
+   }
+
+
+   .overview-wrap{
+      grid-area: overview-wrap;
+      width: 228px;
+      margin-left: 20px;
+   }
+
+    
+@media(max-width: 620px){
+   .overview-wrap{
+      width: 367px;
+      margin-left: 10px;
+   }
+}
+
    .card{
       height: 284px;
-      width: 455px;
+      width: 454px;
       margin-bottom: 34px;
-      margin-right: 37px;
+      margin-right: 36px;
       border-radius: 0;
+  
    }
+
+   .card:nth-child(2n){
+      margin-right: 0;
+   }
+
+
+      
+
+   
+@media(max-width: 620px){
+   .card{
+      width: 387px;
+      height: 245px;
+      margin-right: 0;
+   }
+ }
+
+   
+
    
    .row{
       margin-top: -24px;
       margin-left: -24px;
+      display: grid;
+      grid-template-areas: 
+      "image info"
+      "image overview-wrap";
+      grid-template-columns: 183px 1fr;
+      grid-template-rows: 103px 1fr;
    }
 
-   .col-right{
-      padding-left: 20px;
+
+   
+@media(max-width: 620px){
+   .row{
+      margin-top: -24px;
+      margin-left: -24px;
+      grid-template-areas: 
+      "image info"
+      "overview-wrap overview-wrap";
+      grid-template-columns: 60px 1fr;
+      grid-template-rows: 107px 1fr;
    }
+ }
+
+   
 
    .card-spiner-wrap{
       width: 183px;
@@ -57,4 +131,16 @@
       transform: translate(-50%, -50%);
    }
 
-   
+   .poster{
+      width: 183px;
+       height: 281px
+   }
+
+     
+@media(max-width: 620px){
+   .poster{
+      width: 60px;
+       height: 91px
+   }
+
+ }

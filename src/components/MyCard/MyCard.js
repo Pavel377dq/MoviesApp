@@ -1,24 +1,49 @@
-import { Col, Row } from "antd";
 import { Card } from 'antd';
 import format from "date-fns/format";
 import { registerLocale } from "react-datepicker";
 import { enGB } from "date-fns/esm/locale";
 import "./MyCard.css"
 import {Component} from "react";
-import { Space, Spin } from "antd";
+import {Rate, Space, Spin } from "antd";
 import ErrorIndicator from "../Error-indicator/Error-indicator"
+import contextApi from "../../services/contextApi.js";
 
 registerLocale("enGB", enGB);
 
 export default class MyCard extends Component {
   
 
+
   state= {
+    id: this.props.id,
     currentPage:1,
     isLoadingPicture: true,
-    error: false
+    error: false,
+    rate: 0,
+    api: this.props.api
   }
 
+ 
+
+  changeRate = async (value) => {
+const {api} = this.state;
+    await this.setState({
+      rate: value
+    })
+    const {id} = this.state;
+    const rates = JSON.parse(localStorage.getItem('rates'));
+
+
+    
+      const data = await api.putRateMovie(id, value);
+
+      if (data.success) {
+        const newRates = JSON.stringify({ ...rates, [id]: value });
+
+        localStorage.setItem('rates', newRates);
+      } 
+   
+  };
 
   /*componentWillUpdate(prevProps, prevState, prevContext){
 
@@ -34,7 +59,9 @@ export default class MyCard extends Component {
 
   shouldComponentUpdate(nextProps){
 
+    
     if(nextProps.currentPage !== this.state.currentPage){
+      console.log('shouldComponentUpdate in if')
       this.setState({ currentPage: nextProps.currentPage,
         isLoadingPicture: true });
     }
@@ -55,13 +82,16 @@ export default class MyCard extends Component {
   handleImageErrored(evt) {
     evt.preventDefault();
     this.setState({ isLoadingPicture: false, error: true });
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRORRRRRRRRRRRRRR')
   }
 
  
-
+  onChangeRate = (value) => {
+    this.changeRate(value);
+  };
 
   render(){
-    const {title,releaseDate, poster_path, overview,sliceText} = this.props;
+    const {title,releaseDate, poster_path, overview,sliceText, rate} = this.props;
   
   
    const  spiner = this.state.isLoadingPicture ? <Space className="card-spiner-wrap" size="middle">
@@ -72,27 +102,28 @@ export default class MyCard extends Component {
     //  {errIndicator}
 return (
   <Card className="card">
-    <Row className="row">
-      <Col className="col-left" flex="183px">
+    <div className="row">
+      <div className="col-left">
      
         {spiner}
       <img alt="Красивый постер фильма"
 onLoad={this.handleImageLoaded.bind(this)}
 onError={this.handleImageErrored.bind(this)}
-style={{ width: "183px", height: "281px" }}
 className="poster"
 src={`https://image.tmdb.org/t/p/original${poster_path}`}/>
-      </Col>
-      <Col className="col-right" flex="240px">
+      </div>
+      <div className="col-right" flex="240px">
         <h5 className="nameMovie">{title}</h5>
         <span className="dateMovie">{format(new Date(releaseDate), "MMMM dd, yyyy", {
           locale: enGB,
         })}</span>
-        <p className="overview">{sliceText(overview)}</p>
-
         
-      </Col>
-    </Row>
+      </div>
+      <div className="overview-wrap">
+      <p className="overview">{sliceText(overview)}</p>
+      <Rate count={10} onChange={this.onChangeRate} value={rate} className="card__rate" />
+      </div>
+    </div>
   </Card>
 );
 

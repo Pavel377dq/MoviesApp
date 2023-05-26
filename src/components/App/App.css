@@ -1,3 +1,51 @@
 .offline{
    position: absolute;
 }
+
+.inputName{
+   display: block;
+   height: 40px;
+   width: 938px;
+   border: 1px solid #D9D9D9;
+   border-radius: 4px;
+   margin: 0 auto;
+   margin-top: 20px;
+   margin-bottom: 34px;
+}
+
+input:focus{
+   outline:none;
+   border: 2px solid #1890FF !important;
+}
+
+
+@media(max-width: 620px){
+
+   .inputName{
+      width: 388px;
+   }
+}
+
+.paginationWrap{
+   width: 450px;
+   margin: 0 auto;
+   margin-top: 44px;
+
+}
+
+
+@media(max-width: 620px){
+
+
+   .paginationWrap{
+      width: 300px;
+   }
+}
+
+
+ .spin.ant-spin {
+   position: fixed !important;
+   top: 20vh !important;
+   left: calc(50vw - (53.3px / 2));
+ }
+
