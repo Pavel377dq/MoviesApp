@@ -22,16 +22,43 @@ export default class App extends Component {
     totalItems: 0,
     currentPage: 1,
     movieName: "",
-    isOpenSession: false
+    isOpenSession: false,
+    ratesMovies: []
   };
 
+  genres=null;
+
   componentDidMount() {
+    console.log("App DidMount")
+   // const dataOfRatedMovies = MoviesApi
+   this.openGuestSession();
     this.getMovies("Road");
-    this.openGuestSession();
-    
+    this.setState({movieName: "Road"})
+    this.MoviesApi.getGenre().then((data) => {
+      this.genres = data.genres
+    })
     
   }
 
+  rateMovie = (filmId, rate) => {
+   
+    this.MoviesApi
+      .putRateMovie(filmId, rate)
+      .then(() => {
+        this.setState(({ moviesData,ratesMovies }) => {
+          const newMovieList = moviesData.map((movie) =>
+            movie.id === filmId ? { ...movie, rating: rate } : { ...movie }
+          )
+
+          const newRatesMovies = [...ratesMovies];
+          newRatesMovies.push( filmId );
+          
+         
+          return { moviesData: newMovieList,ratesMovies: newRatesMovies}
+        })
+      })
+      //.catch(() => this.setState({ status: 'error' }))
+  }
   
   openGuestSession = async () => {
     try {
@@ -54,37 +81,99 @@ export default class App extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    const { isOpenSession, pageApp } = this.state;
+    console.log('App DidUpdate')
+    const { isOpenSession, pageApp,movieName,currentPage } = this.state;
     const { isOpenSession: prevIsOpenSession, pageApp: prevPageApp } = prevState;
 
     if (isOpenSession !== prevIsOpenSession && isOpenSession) {
-      this.getMovies();
+      this.getMovies(movieName,currentPage);
     }
     if (pageApp !== prevPageApp && isOpenSession) {
-      this.getMovies();
+      this.getMovies(movieName,currentPage);
     }
   }
 
   componentWillUnmount() {
     //  clearInterval(this.intervalId);
+   /* const {ratesMovies} = this.state;
+    for(let i=0; i< ratesMovies.length;i++){
+      this.MoviesApi.deleteRateMovie(ratesMovies[i].id);
+    }*/
+
+   
+   // this.MoviesApi.deleteRateMovie();
   }
 
   getMovies = async (keyWord, page = 1) => {
 
     const { pageApp } = this.state;
 
-    this.interval = await setTimeout(
+    this.interval =  setTimeout(
       () => this.setState({ isLoadingAll: true }),
       0
     );
-
-    await setTimeout(
+    let pageNumber =1;
+    let   ratedMovies =  await this.MoviesApi.getAllRatedMovies(pageNumber);
+    let totalRes = ratedMovies.total_results;
+    let allRatedMovies =[]
+    while(totalRes > 0){
+      totalRes-=20;
+      allRatedMovies.push(...ratedMovies.results)
+      pageNumber++;
+      ratedMovies =  await this.MoviesApi.getAllRatedMovies(pageNumber)
+    }
+    console.log(allRatedMovies,'allRatedMovies', allRatedMovies.length,'allRatedMovies.length')
+     setTimeout(
       () =>{
+
+      
+      /* this.MoviesApi.getRatedMovies(page).then((serverData)=>{
+        serverData.results.length !== 0? ratedMovies = serverData.results :  ratedMovies =[]
+       })*/
         pageApp === 'Search' ? this.MoviesApi.getResource(keyWord, page)
           .then((serverData) => {
+          /*  const ratesMovies = serverData.results.map((movie)=>{
+              return {...movie, rate: 0}
+            })*/
+            /*const {ratesMovies} = this.state;
+            const movies = serverData.results.map((movie) =>{
+             for(let i=0; i < ratesMovies.length;i++){
+              if(ratesMovies[i].id ===movie.id && ratesMovies[i].overview ===movie.overview){
+                movie.rate=ratesMovies[i].rate;
+                (movie,"MOVIE IN CIRCLE MAP+++++++++++++++++++++++++++++++++++++++++++",ratesMovies[i].rate, '----',movie.rate)
+              }
+              else{
+                movie.rate = 0;
+              }
+             }
+              return movie;
+            })
+            (movies,'MOVIES AFTER RATED')*/
+            //console.log(ratedMovies,'ratedMovies','lenght',ratedMovies.results.length)
+            //let count = 0
+            const movies = allRatedMovies.length !== 0 ?serverData.results.map((movie) =>{
+              //const mov = Object.assign({},movie)
+              for(let i=0; i < allRatedMovies.length;i++){
+               if(allRatedMovies[i].id ===movie.id){
+              //  count++;
+
+                //console.log(ratedMovies.results[i].original_title,'===', movie.original_title
+                //)
+                 movie.rating=allRatedMovies[i].rating;
+                 //console.log('movie rating',movie.rating)
+                 //console.log(count);
+                // break
+               }
+              
+              }
+
+               return movie;
+             }):serverData.results;
+              
+             console.log('MOVIES',movies)
             this.setState({
               movieName: keyWord,
-              moviesData: serverData.results,
+              moviesData: movies,
               totalItems: serverData.total_results,
               currentPage: serverData.page,
               isLoadingAll: false, //false?
@@ -100,9 +189,23 @@ export default class App extends Component {
               spin: false,
             });
           }): this.MoviesApi.getRatedMovies(page).then((serverData) => {
+
+            /*const {ratesMovies} = this.state;
+            const movies = serverData.results.map((movie) =>{
+             for(let i=0; i < ratesMovies.length;i++){
+              if(ratesMovies[i].id ===movie.id && ratesMovies[i].overview ===movie.overview){
+                movie.rate=ratesMovies[i].rate;
+              }
+              else{
+                movie.rate = 0;
+              }
+             }
+              return movie;
+            })*/
+           
             this.setState({
               movieName: keyWord,
-              moviesData: serverData.results,
+              moviesData:  serverData.results,
               totalItems: serverData.total_results,
               currentPage: serverData.page,
               isLoadingAll: false, //false?
@@ -137,11 +240,13 @@ export default class App extends Component {
     });
   };
 
+  
+
   //jukhuih
   render() {
     const { moviesData, isLoadingAll, error, currentPage, totalItems, pageApp,spin } =
       this.state;
-    console.log("isLoadingAll------------------", isLoadingAll);
+  
     return (
       <contextApi.Provider value={this.MoviesApi}>
       <div>
@@ -170,7 +275,7 @@ export default class App extends Component {
                   currentPage={currentPage}
                   error={error}
                   MoviesApi={this.MoviesApi}
-
+                  rateMovie={this.rateMovie}
                 />
               ) : null}
             </Spin>
@@ -187,6 +292,7 @@ export default class App extends Component {
               showSizeChanger={false}
               responsive
               className="pagination"
+              
             />
           ) : null}
         </div>

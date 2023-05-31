@@ -23,6 +23,7 @@
    .col-right{
       padding-left: 20px;
       grid-area: info;
+      position: relative !important;
    }
    
 @media(max-width: 620px){
@@ -30,6 +31,12 @@
       padding-left: 13px;
       margin-left: 10px;
    }
+}
+
+.ant-progress{
+   position: absolute !important;
+   right: -6%;
+   top: 4%;
 }
 
    .col-left{

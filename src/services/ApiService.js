@@ -43,7 +43,7 @@ export default class ApiService{
       });
   
       const data = await resp.json();
-  console.log(data,'open guest session');
+  
 
       if (!resp.ok) {
         throw new Error(`${data.status_message}`);
@@ -71,14 +71,52 @@ export default class ApiService{
       if (!resp.ok) {
         throw new Error(`${data.status_message}`);
       }
+      
       return data;
     }
 
+    async getAllRatedMovies(page) {
+      const res = await fetch(`${this.baseUrl}/3/guest_session/${this.guestSessionId}/rated/movies?api_key=${this.apiKey}&page=${page}`)
+      if (!res.ok) {
+        throw new Error(`Something is going wrong, received ${res.status}`)
+      }
+      const data = await res.json()
+     // return { totalResults: data.total_results }
+     return data
+    }
 
+    async deleteRateMovie(id) {
+      const resp = await fetch(
+        `${this.baseUrl}/3/movie/${id}/rating?api_key=${this.apiKey}&guest_session_id=${this.guestSessionId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        }
+      );
+
+      const data = await resp.json();
+
+      if (!data.success) {
+        throw new Error(`${data.status_message}`);
+      }
+  
+      return data;
+    }
+
+    async getGenre() {
+      const res = await fetch(`${this.baseUrl}/3/genre/movie/list?api_key=${this.apiKey}`)
+      if (!res.ok) {
+        throw new Error(`Something is going wrong, received ${res.status}`)
+      }
+      return await res.json()
+    }
   
     async putRateMovie(id, value) {
-      console.log(this.guestSessionId,'GUSETID')
-      console.log(`${this.baseUrl}/3/movie/${id}/rating?api_key=${this.apiKey}&guest_session_id=${this.guestSessionId}`)
+      
+      
       const resp = await fetch(
         `${this.baseUrl}/3/movie/${id}/rating?api_key=${this.apiKey}&guest_session_id=${this.guestSessionId}`,
         {
@@ -97,6 +135,7 @@ export default class ApiService{
         throw new Error(`${data.status_message}`);
       }
   
+      
       return data;
     }
 }

@@ -7,6 +7,7 @@ import {Component} from "react";
 import {Rate, Space, Spin } from "antd";
 import ErrorIndicator from "../Error-indicator/Error-indicator"
 import contextApi from "../../services/contextApi.js";
+import Progress from '../Progress/progress.js'
 
 registerLocale("enGB", enGB);
 
@@ -15,7 +16,7 @@ export default class MyCard extends Component {
 
 
   state= {
-    id: this.props.id,
+   // id: this.props.id,
     currentPage:1,
     isLoadingPicture: true,
     error: false,
@@ -26,22 +27,17 @@ export default class MyCard extends Component {
  
 
   changeRate = async (value) => {
-const {api} = this.state;
-    await this.setState({
-      rate: value
-    })
-    const {id} = this.state;
-    const rates = JSON.parse(localStorage.getItem('rates'));
+
+   
+    const {id} = this.props;
+    const {rateMovie} = this.props;
+
 
 
     
-      const data = await api.putRateMovie(id, value);
+      
+      rateMovie(id,value)
 
-      if (data.success) {
-        const newRates = JSON.stringify({ ...rates, [id]: value });
-
-        localStorage.setItem('rates', newRates);
-      } 
    
   };
 
@@ -51,17 +47,17 @@ const {api} = this.state;
       this.setState({ currentPage: this.props.currentPage,
         isLoadingPicture: true });
 
-        console.log('OKOKOKOKOKOKOKOK')
+        ('OKOKOKOKOKOKOKOK')
     }
 
-    console.log('componentDidUpdate')
+    ('componentDidUpdate')
   }*/
 
   shouldComponentUpdate(nextProps){
 
     
     if(nextProps.currentPage !== this.state.currentPage){
-      console.log('shouldComponentUpdate in if')
+    
       this.setState({ currentPage: nextProps.currentPage,
         isLoadingPicture: true });
     }
@@ -76,13 +72,13 @@ const {api} = this.state;
 
   handleImageLoaded() {
     this.setState({ isLoadingPicture: false });
-    console.log('handleImageLoaded')
+    
   }
 
   handleImageErrored(evt) {
     evt.preventDefault();
     this.setState({ isLoadingPicture: false, error: true });
-    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRORRRRRRRRRRRRRR')
+   
   }
 
  
@@ -90,9 +86,25 @@ const {api} = this.state;
     this.changeRate(value);
   };
 
+  colorVote = (vote) =>{
+
+    let voteColor = ''
+    if (vote < 3) {
+      voteColor = '#E90000'
+    } else if (vote >= 3 && vote <= 5) {
+      voteColor = '#E97E00'
+    } else if (vote > 5 && vote <= 7) {
+      voteColor = '#E9D100'
+    } else{
+      voteColor = '#66E900'
+    }
+
+    return voteColor;
+  }
+
   render(){
-    const {title,releaseDate, poster_path, overview,sliceText, rate} = this.props;
-  
+    const {title,releaseDate, poster_path, overview,sliceText,vote_average } = this.props;
+    const { rate} = this.props;
   
    const  spiner = this.state.isLoadingPicture ? <Space className="card-spiner-wrap" size="middle">
  <Spin className="card-spiner" size="large" />
@@ -112,8 +124,9 @@ onError={this.handleImageErrored.bind(this)}
 className="poster"
 src={`https://image.tmdb.org/t/p/original${poster_path}`}/>
       </div>
-      <div className="col-right" flex="240px">
+      <div className="col-right" >
         <h5 className="nameMovie">{title}</h5>
+        <Progress className='progress' percent={vote_average  * 10} color={this.colorVote(vote_average)} />
         <span className="dateMovie">{format(new Date(releaseDate), "MMMM dd, yyyy", {
           locale: enGB,
         })}</span>

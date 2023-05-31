@@ -20,7 +20,7 @@ export default class MoviesList extends Component {
   }
 
   rows = (moviesData = null) => {
-    console.log(moviesData,'in rows()')
+   
     const overviewRows = [];
 
     let releaseDates = moviesData.map((el) =>
@@ -33,11 +33,11 @@ export default class MoviesList extends Component {
         : "01-01-1970"
     );
 
-    console.log(releaseDates,'releaseDates');
+   
 
     for (let i = 0; i < moviesData.length; i++) {
       let releaseDate = releaseDates[i];
-      let { title, poster_path, overview,id } = moviesData[i];
+      let { title, poster_path, overview,id,rating,vote_average } = moviesData[i];
       overviewRows.push(
         <MyCard
         currentPage={this.props.currentPage}
@@ -46,13 +46,16 @@ export default class MoviesList extends Component {
           poster_path={poster_path}
           overview={overview}
           title={title}
+          vote_average={vote_average}
           key={i}
           id={id}
-          api={this.props.MoviesApi}/>
+          rate={rating}
+          api={this.props.MoviesApi}
+          rateMovie={this.props.rateMovie}/>
       );
     }
 
-    console.log(overviewRows,'overviewRows');
+    
 
     return overviewRows;
   };
@@ -62,9 +65,7 @@ export default class MoviesList extends Component {
    
 
     
-    //console.log(isLoadingAll,'isLoadingAll');
-    console.log(error,'error');
-    console.log(moviesData,'moviesData');
+    
     const rows = this.rows(moviesData).map((el) => {
           return el;
         })
