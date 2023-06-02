@@ -8,6 +8,14 @@ import ErrorIndicator from '../Error-indicator/Error-indicator';
 export default class MoviesList extends Component {
 
 
+  shouldComponentUpdate(nextProps){
+
+    if(nextProps !== this.props){
+      return true;
+    }
+
+    return false
+  }
 
  rows = (moviesData = null) => {
   const overviewRows = [];
@@ -59,12 +67,11 @@ export default class MoviesList extends Component {
 
  render() {
   const { moviesData, error } = this.props;
-
-  const rows = this.rows(moviesData).map((el) => el);
-
-  const errorMessage = error ? (
-   <ErrorIndicator className="error-list" error="Error 404" message="Data of input movies not found" />
-  ) : null;
+  const rows = moviesData? this.rows(moviesData).map((el) => el): null;
+const errorMessage = error ? (
+  <ErrorIndicator className="error-list" error="Error 404" message="Data of input movies not found" />
+ ) : null;
+ 
 
   return (
    <main className="main">

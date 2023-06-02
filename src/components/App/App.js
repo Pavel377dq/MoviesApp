@@ -29,7 +29,7 @@ constructor(){
     moviesData: null,
     isLoadingAll: false,
     spin: true,
-    error: false,
+    error: null,
     totalItems: 0,
     currentPage: 1,
     movieName: '',
@@ -146,9 +146,10 @@ constructor(){
          spin: false,
         });
        })
-       .catch(() => {
+       .catch((err) => {
+        console.log('IN CATCH')
         this.setState({
-         error: true,
+         error: err,
          isLoadingAll: false,
          moviesData: null,
          spin: false,
@@ -167,9 +168,9 @@ constructor(){
          spin: false,
         });
        })
-       .catch(() => {
+       .catch((err) => {
         this.setState({
-         error: true,
+         error: err,
          isLoadingAll: false,
          moviesData: null,
          spin: false,
@@ -194,7 +195,6 @@ constructor(){
  
  render() {
   const { moviesData, isLoadingAll, error, currentPage, totalItems, pageApp, spin } = this.state;
-  
   return (
    <Provider value={this.genres}>
     <div className="main-wrap">
@@ -211,7 +211,7 @@ constructor(){
       )}
       <div className="spin-wrap">
        <Spin spinning={isLoadingAll} tip="Loading" size="large" className="spin">
-        {moviesData ? (
+        {(moviesData||error) ? (
          <MoviesList
           spin={spin}
           moviesData={moviesData}
