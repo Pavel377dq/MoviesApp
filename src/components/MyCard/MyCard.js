@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
-import { Card, Tag , Rate, Space, Spin } from 'antd';
+import {Image, Card, Tag , Rate, Space, Spin } from 'antd';
 import format from 'date-fns/format';
 import { registerLocale } from 'react-datepicker';
 import { enGB } from 'date-fns/esm/locale';
@@ -11,6 +11,8 @@ import { Component } from 'react';
 
 import { Consumer } from '../../services/contextApi';
 import Progress from '../Progress/progress';
+
+import fallbackImg from './defaultImage/secondRex.svg';
 
 registerLocale('enGB', enGB);
 
@@ -23,21 +25,12 @@ export default class MyCard extends Component {
       isLoadingPicture: true,
       error: false
      };
+
+     this.handleImageLoaded = this.handleImageLoaded.bind(this)
   }
  
 
 
- /* componentWillUpdate(prevProps, prevState, prevContext){
-
-    if(prevProps.currentPage !== this.state.currentPage){
-      this.setState({ currentPage: this.props.currentPage,
-        isLoadingPicture: true });
-
-        ('OKOKOKOKOKOKOKOK')
-    }
-
-    ('componentDidUpdate')
-  } */
 
  shouldComponentUpdate(nextProps) {
   const {currentPage} = this.state;
@@ -48,19 +41,13 @@ export default class MyCard extends Component {
   return true;
  }
 
- /* componentWillUnmount(){
-    this.setState({ currentPage: this.props.currentPage,
-      isLoadingPicture: true });
-  } */
+
 
  handleImageLoaded() {
   this.setState({ isLoadingPicture: false });
  }
 
- handleImageErrored(evt) {
-  evt.preventDefault();
-  this.setState({ isLoadingPicture: false, error: true });
- }
+
 
  
  changeRate = async (value) => {
@@ -104,10 +91,10 @@ export default class MyCard extends Component {
     <div className="row">
      <div className="col-left">
       {spiner}
-      <img
+      <Image
        alt="Красивый постер фильма"
-       onLoad={this.handleImageLoaded.bind(this)}
-       onError={this.handleImageErrored.bind(this)}
+       onLoad={this.handleImageLoaded}
+       fallback={fallbackImg}
        className="poster"
        src={`https://image.tmdb.org/t/p/original${posterPath}`}
       />

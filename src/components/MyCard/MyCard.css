@@ -132,14 +132,14 @@
 }
 
 .poster {
- width: 183px;
- height: 281px;
+ width: 183px !important;
+ height: 281px !important;
 }
 
 @media (max-width: 620px) {
  .poster {
-  width: 60px;
-  height: 91px;
+  width: 60px !important;
+  height: 91px !important;
  }
 }
 .genre {
