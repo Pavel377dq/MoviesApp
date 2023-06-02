@@ -1,1 +1,1 @@
-vercel https://react-movies-kappa-beige.vercel.app
+vercel https://react-movies-pavel377dq.vercel.app
