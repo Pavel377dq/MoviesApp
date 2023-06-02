@@ -6,10 +6,18 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "airbnb": "^0.0.2",
     "antd": "^5.4.7",
     "date-fns": "^2.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
     "inter-ui": "^3.19.3",
     "lodash": "^4.17.21",
+    "prettier": "^2.8.8",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.11.0",
     "react-detect-offline": "^2.4.5",
@@ -21,7 +29,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "format": "prettier --write ./src/**/*.js && prettier --write ./src/**/*.css",
+    "FixAll": "npm run format && npm run lint:fix"
   },
   "eslintConfig": {
     "extends": [

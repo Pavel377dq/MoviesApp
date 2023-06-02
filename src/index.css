@@ -1,20 +1,21 @@
 html {
-  box-sizing: border-box;
-  font-family: "Inter", "system-ui";
+ box-sizing: border-box;
+ font-family: 'Inter', 'system-ui';
 }
-
 
 @supports (font-variation-settings: normal) {
-  html { font-family: "Inter var", "system-ui"; }
+ html {
+  font-family: 'Inter var', 'system-ui';
+ }
 }
 
-
+body {
+ background-color: #e5e5e5;
+ padding: 0;
+}
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+ box-sizing: inherit;
 }
-
-
-

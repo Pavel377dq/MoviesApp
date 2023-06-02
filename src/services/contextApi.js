@@ -1,5 +1,5 @@
 import React from 'react';
 
-const contextApi = React.createContext([]);
+const { Provider, Consumer } = React.createContext();
 
-export default contextApi;
+export { Provider, Consumer };

@@ -1,88 +1,80 @@
-import React, { Component } from "react";
-import "./MoviesList.css";
-import MyCard from "../MyCard/MyCard.js";
-import ErrorIndicator from "../Error-indicator/Error-indicator"
+/* eslint-disable camelcase */
+import React, { Component } from 'react';
+
+import './MoviesList.css';
+import MyCard from '../MyCard/MyCard';
+import ErrorIndicator from '../Error-indicator/Error-indicator';
 
 export default class MoviesList extends Component {
 
 
 
+ rows = (moviesData = null) => {
+  const overviewRows = [];
 
-  sliceText(text) {
-    const size = 30;
-    let newText = text;
+  const releaseDates = moviesData.map((el) =>
+   el.release_date
+    ? el.release_date.split('-').slice(-2).concat(el.release_date.split('-').slice(0, 1)).join('-')
+    : '01-01-1970'
+  );
 
-    if (newText.length > size) {
-      newText = newText.split(" ").slice(0, size).join(" ") + "...";
-    }
-
-    return newText;
+  for (let i = 0; i < moviesData.length; i+=1) {
+   const releaseDate = releaseDates[i];
+   // eslint-disable-next-line camelcase
+   const { title, poster_path, overview, id, rating, vote_average, genre_ids } = moviesData[i];
+   const {currentPage,MoviesApi,rateMovie} = this.props;
+   overviewRows.push(
+    <MyCard
+     currentPage={currentPage}
+     releaseDate={releaseDate}
+     sliceText={this.sliceText}
+     posterPath={poster_path}
+     overview={overview}
+     title={title}
+     voteAverage={vote_average}
+     key={i}
+     genreIds={genre_ids}
+     id={id}
+     rate={rating}
+     api={MoviesApi}
+     rateMovie={rateMovie}
+    />
+   );
   }
 
-  rows = (moviesData = null) => {
-   
-    const overviewRows = [];
+  return overviewRows;
+ };
 
-    let releaseDates = moviesData.map((el) =>
-      el.release_date
-        ? el.release_date
-            .split("-")
-            .slice(-2)
-            .concat(el.release_date.split("-").slice(0, 1))
-            .join("-")
-        : "01-01-1970"
-    );
+ // eslint-disable-next-line class-methods-use-this
+ sliceText(text){
+  const size = 20;
+  let newText = text;
 
-   
-
-    for (let i = 0; i < moviesData.length; i++) {
-      let releaseDate = releaseDates[i];
-      let { title, poster_path, overview,id,rating,vote_average } = moviesData[i];
-      overviewRows.push(
-        <MyCard
-        currentPage={this.props.currentPage}
-          releaseDate={releaseDate}
-          sliceText={this.sliceText}
-          poster_path={poster_path}
-          overview={overview}
-          title={title}
-          vote_average={vote_average}
-          key={i}
-          id={id}
-          rate={rating}
-          api={this.props.MoviesApi}
-          rateMovie={this.props.rateMovie}/>
-      );
-    }
-
-    
-
-    return overviewRows;
-  };
-
-  render() {
-    const { moviesData,error } = this.props;
-   
-
-    
-    
-    const rows = this.rows(moviesData).map((el) => {
-          return el;
-        })
-
-    const errorMessage = error ? <ErrorIndicator className="error-list" error={'Error 404'} message={'Data of input movies not found'}/>: null;
-
- 
-
-    return (
-      <main className="main">
-        <div className="block">
-        <div className="wrap">
-          {errorMessage}
-          {rows}
-        </div>
-        </div>
-      </main>
-    );
+  if (newText.length > size) {
+   newText = `${newText.split(' ').slice(0, size).join(' ')  }...`;
   }
+
+  return newText;
+ };
+
+ render() {
+  const { moviesData, error } = this.props;
+
+  const rows = this.rows(moviesData).map((el) => el);
+
+  const errorMessage = error ? (
+   <ErrorIndicator className="error-list" error="Error 404" message="Data of input movies not found" />
+  ) : null;
+
+  return (
+   <main className="main">
+    <div className="block">
+     <div className="wrap">
+      {errorMessage}
+      {rows}
+     </div>
+    </div>
+   </main>
+  );
+ }
 }

@@ -1,26 +1,25 @@
 .top-bar {
-   display: flex;
-   justify-content: center;
-   list-style: none;
-   padding-left: 0;
-   margin: 0;
-   font-size: 14px;
-   margin-bottom: 20px;
- }
- 
- .top-bar__button {
-   background: none;
-   padding: 17px;
-   border: none;
-   border-bottom: 1px solid #D9D9D9;
- 
- }
- 
- .top-bar__button:hover {
-   color: #1890FF;
- }
- 
- .top-bar__button--active {
-   color: #1890FF;
-   border-bottom: 2.24px solid #1890FF;
- }
+ display: flex;
+ justify-content: center;
+ list-style: none;
+ padding-left: 0;
+ margin: 0;
+ font-size: 14px;
+ margin-bottom: 20px;
+}
+
+.top-bar__button {
+ background: none;
+ padding: 17px;
+ border: none;
+ border-bottom: 1px solid #d9d9d9;
+}
+
+.top-bar__button:hover {
+ color: #1890ff;
+}
+
+.top-bar__button--active {
+ color: #1890ff;
+ border-bottom: 2.24px solid #1890ff;
+}
