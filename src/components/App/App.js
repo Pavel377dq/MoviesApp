@@ -147,7 +147,6 @@ constructor(){
         });
        })
        .catch((err) => {
-        console.log('IN CATCH')
         this.setState({
          error: err,
          isLoadingAll: false,
@@ -202,12 +201,14 @@ constructor(){
       <Offline className="offline">Only shown offline (surprise!)</Offline>
       <TopBar pageApp={pageApp} changePageApp={this.changePageApp} />
       {pageApp === 'Search' && (
+      
        <input
         placeholder="Type to search"
         type="text"
         className="inputName"
         onChange={(event) => this.deb(event.target.value)}
        />
+      
       )}
       <div className="spin-wrap">
        <Spin spinning={isLoadingAll} tip="Loading" size="large" className="spin">

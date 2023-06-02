@@ -47,7 +47,7 @@ input:focus {
 
 
 .main-wrap {
- max-width: 944px;
+ width: 944px;
  background-color: #ffffff;
  margin: 0 auto;
 }

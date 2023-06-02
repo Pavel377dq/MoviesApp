@@ -1,17 +1,17 @@
 import { Alert, Space } from 'antd';
 
 function ErrorIndicator(props) {
- const { message, error } = props;
+ const {  error } = props;
 
  return (
   <Space
    direction="vertical"
    style={{
     width: '100%',
-    position: 'absolute',
+    position: 'relative',
    }}
   >
-   <Alert message={error} description={message} type="error" />
+   <Alert message='Error' description='Movie not found' error={error} type="error" />
   </Space>
  );
 }

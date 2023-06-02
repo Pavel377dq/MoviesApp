@@ -14,7 +14,7 @@ export default class MoviesList extends Component {
       return true;
     }
 
-    return false
+    return false;
   }
 
  rows = (moviesData = null) => {
@@ -81,7 +81,7 @@ export default class MoviesList extends Component {
   const { moviesData, error } = this.props;
   const rows = moviesData? this.rows(moviesData).map((el) => el): null;
 const errorMessage = error ? (
-  <ErrorIndicator className="error-list" error="Error 404" message="Data of input movies not found" />
+  <ErrorIndicator className="error-list" error={error}  />
  ) : null;
  
 

@@ -26,7 +26,7 @@ export default class MyCard extends Component {
       error: false
      };
 
-     this.handleImageLoaded = this.handleImageLoaded.bind(this)
+     this.handleImageLoaded = this.handleImageLoaded.bind(this);
   }
  
 
