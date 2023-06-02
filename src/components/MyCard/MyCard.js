@@ -140,7 +140,7 @@ export default class MyCard extends Component {
       </div>
      </div>
      <div className="overview-wrap">
-      <p className="overview">{sliceText(overview)}</p>
+      <p className="overview">{sliceText(overview,title.length,genreIds.length)}</p>
       <Rate count={10} allowHalf onChange={this.onChangeRate} value={rate} className="cardRate" />
      </div>
     </div>

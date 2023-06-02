@@ -54,8 +54,20 @@ export default class MoviesList extends Component {
  };
 
  // eslint-disable-next-line class-methods-use-this
- sliceText(text){
-  const size = 20;
+ sliceText(text,titleLength,tagsLenServer){
+  let size;
+
+  const tagsLen = tagsLenServer || 1;
+
+  if(titleLength > 40 && tagsLen >=3){
+    size = 5;
+  }
+  else if(titleLength > 15 && titleLength <= 40 && tagsLen <3) {
+    size = 10;
+  }
+  else{
+    size = 20;
+  }
   let newText = text;
 
   if (newText.length > size) {
