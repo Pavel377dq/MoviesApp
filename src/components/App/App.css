@@ -34,6 +34,8 @@ input:focus {
  .paginationWrap {
   width: 300px;
  }
+
+
 }
 
 .spin.ant-spin {
@@ -41,6 +43,8 @@ input:focus {
  top: 20vh !important;
  left: calc(50vw - (53.3px / 2));
 }
+
+
 
 .main-wrap {
  max-width: 944px;
