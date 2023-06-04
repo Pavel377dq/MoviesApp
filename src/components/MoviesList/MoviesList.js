@@ -29,29 +29,24 @@ export default class MoviesList extends Component {
   for (let i = 0; i < moviesData.length; i+=1) {
    const releaseDate = releaseDates[i];
    // eslint-disable-next-line camelcase
-   const { title, poster_path, overview, id, rating, vote_average, genre_ids } = moviesData[i];
+   const movieData = moviesData[i];
    const {currentPage,MoviesApi,rateMovie} = this.props;
    overviewRows.push(
     <MyCard
      currentPage={currentPage}
      releaseDate={releaseDate}
      sliceText={this.sliceText}
-     posterPath={poster_path}
-     overview={overview}
-     title={title}
-     voteAverage={vote_average}
-     key={i}
-     genreIds={genre_ids}
-     id={id}
-     rate={rating}
+     key={i} 
      api={MoviesApi}
      rateMovie={rateMovie}
+     movieData = {movieData}
     />
    );
   }
 
   return overviewRows;
  };
+ 
 
  // eslint-disable-next-line class-methods-use-this
  sliceText(text,titleLength,tagsLenServer){
@@ -62,7 +57,7 @@ export default class MoviesList extends Component {
   if(titleLength > 40 && tagsLen >=3){
     size = 5;
   }
-  else if(titleLength > 15 && titleLength <= 40 && tagsLen <3) {
+  else if(titleLength > 15 && titleLength <= 40 && tagsLen >=3) {
     size = 10;
   }
   else{

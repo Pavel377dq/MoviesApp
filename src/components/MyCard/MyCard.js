@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-unused-state */
-import {Image, Card, Tag , Rate, Space, Spin } from 'antd';
+import {Image, Card, Tag , Rate } from 'antd';
 import format from 'date-fns/format';
 import { registerLocale } from 'react-datepicker';
 import { enGB } from 'date-fns/esm/locale';
@@ -36,6 +36,7 @@ export default class MyCard extends Component {
   const {currentPage} = this.state;
   if (nextProps.currentPage !== currentPage) {
    this.setState({ currentPage: nextProps.currentPage, isLoadingPicture: true });
+   return false;
   }
 
   return true;
@@ -77,20 +78,19 @@ export default class MyCard extends Component {
  };
 
  render() {
-  const { title, releaseDate, posterPath, overview, sliceText, voteAverage, genreIds,rate } = this.props;
+  const {  releaseDate, sliceText } = this.props;
+// id ?
 
-  const spiner = this.state.isLoadingPicture ? (
-   <Space className="card-spiner-wrap" size="middle">
-    <Spin className="card-spiner" size="large" />
-   </Space>
-  ) : null;
+const {
+  title, poster_path : posterPath, overview, vote_average: voteAverage , genre_ids:genreIds,rating: rate
+} = this.props.movieData;
+
 
  
   return (
    <Card className="card">
     <div className="row">
      <div className="col-left">
-      {spiner}
       <Image
        alt="Красивый постер фильма"
        onLoad={this.handleImageLoaded}
@@ -128,9 +128,11 @@ export default class MyCard extends Component {
      </div>
      <div className="overview-wrap">
       <p className="overview">{sliceText(overview,title.length,genreIds.length)}</p>
-      <Rate count={10} allowHalf onChange={this.onChangeRate} value={rate} className="cardRate" />
+      
      </div>
+     
     </div>
+    <Rate count={10} allowHalf onChange={this.onChangeRate} value={rate} className="cardRate" />
    </Card>
   );
  }

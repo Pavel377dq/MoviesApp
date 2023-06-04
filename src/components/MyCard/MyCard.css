@@ -72,11 +72,13 @@
 }
 
 .card {
+ position: relative;
  height: 284px;
  width: 454px;
  margin-bottom: 34px;
  margin-right: 36px;
  border-radius: 0;
+ box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
 .card:nth-child(2n) {
@@ -88,6 +90,7 @@
   width: 387px;
   height: 245px;
   margin-right: 0;
+  border: 0.1px solid transparent;
  }
 }
 
@@ -97,7 +100,7 @@
   'image info'
   'image overview-wrap';
  grid-template-columns: 183px 1fr;
- grid-template-rows: minmax(86px, 1fr) minmax(170px, 186px);
+ grid-template-rows: minmax(86px, 1fr) minmax(40px, 160px);
 }
 
 @media (max-width: 992px) {
@@ -106,7 +109,7 @@
    'image info'
    'overview-wrap overview-wrap';
   grid-template-columns: 60px 1fr;
-  grid-template-rows: minmax(86px, 1fr) minmax(170px, 186px);
+  grid-template-rows: minmax(86px, 1fr) minmax(120px, 1fr);
  }
 }
 
@@ -143,6 +146,9 @@
 }
 
 .cardRate {
+   position: absolute;
+   bottom: 10px;
+   right: 10px;
  width: 228px;
  font-size: 15px;
 }
