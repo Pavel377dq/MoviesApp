@@ -226,7 +226,7 @@ constructor(){
        </Spin>
       </div>
      </div>
-     <div className="paginationWrap">
+     <footer className="paginationWrap">
       {moviesData ? (
        <Pagination
         current={currentPage}
@@ -239,7 +239,7 @@ constructor(){
         className="pagination"
        />
       ) : null}
-     </div>
+     </footer>
     </div>
    </Provider>
   );

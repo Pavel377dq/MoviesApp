@@ -86,14 +86,10 @@ const errorMessage = error ? (
  
 
   return (
-   <main className="main">
-    <div className="block">
-     <div className="wrap">
+     <div className="flexWrap">
       {errorMessage}
       {rows}
      </div>
-    </div>
-   </main>
   );
  }
 }

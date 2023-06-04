@@ -26,7 +26,7 @@
  min-height: 86px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .col-right {
   padding-left: 13px;
   margin-left: 10px;
@@ -35,14 +35,14 @@
 
 .ant-progress {
  position: absolute !important;
- right: -6%;
- top: 4%;
+ right: 1%;
+ top: 2%;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .ant-progress {
   right: 1%;
-  top: 4%;
+  top: 2%;
  }
 }
 
@@ -50,7 +50,7 @@
  grid-area: image;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .col-left {
   margin-top: 6px;
   margin-left: 10px;
@@ -64,7 +64,7 @@
  margin-top: 7px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .overview-wrap {
   width: 367px;
   margin-left: 10px;
@@ -83,7 +83,7 @@
  margin-right: 0;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .card {
   width: 387px;
   height: 245px;
@@ -92,8 +92,6 @@
 }
 
 .row {
- margin-top: -24px;
- margin-left: -24px;
  display: grid;
  grid-template-areas:
   'image info'
@@ -102,10 +100,8 @@
  grid-template-rows: minmax(86px, 1fr) minmax(170px, 186px);
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .row {
-  margin-top: -24px;
-  margin-left: -24px;
   grid-template-areas:
    'image info'
    'overview-wrap overview-wrap';
@@ -132,13 +128,13 @@
 }
 
 .poster {
- width: 183px !important;
+ width: auto;
  height: 281px !important;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 992px) {
  .poster {
-  width: 60px !important;
+  width: auto;
   height: 91px !important;
  }
 }
@@ -149,4 +145,9 @@
 .cardRate {
  width: 228px;
  font-size: 15px;
+}
+
+
+.ant-card-body{
+   padding: 0 !important;
 }
