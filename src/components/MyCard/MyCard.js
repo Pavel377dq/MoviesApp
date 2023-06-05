@@ -52,7 +52,7 @@ export default class MyCard extends Component {
 
  
  changeRate = async (value) => {
-  const { id } = this.props;
+  const { id } = this.props.movieData;
   const { rateMovie } = this.props;
 
   rateMovie(id, value);
